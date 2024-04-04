@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resizable Components Layout</title>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+  #container {
+    display: flex;
+    height: 400px;
+  }
+  .component {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    overflow: auto;
+    padding: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div id="container">
+  <div id="component1" class="component">
+    <h2>Component 1</h2>
+    <p>This is the content of Component 1.</p>
+  </div>
+  <div id="component2" class="component">
+    <h2>Component 2</h2>
+    <p>This is the content of Component 2.</p>
+  </div>
+  <div id="component3" class="component">
+    <h2>Component 3</h2>
+    <p>This is the content of Component 3.</p>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $(function() {
+    $(".component").resizable({
+      handles: 'e, w', // allow resizing from left and right sides
+      resize: function(event, ui) {
+        var parentWidth = $(this).parent().width();
+        var remainingWidth = parentWidth - ui.element.outerWidth();
+        var siblings = $(this).siblings();
+        var numSiblings = siblings.length;
+        var newWidth = remainingWidth / numSiblings;
+        siblings.width(newWidth);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
